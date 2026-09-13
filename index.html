@@ -270,11 +270,6 @@
   }
   .switch.on::after{ left:22px; }
 
-  .libras-note{
-    background: var(--navy); color:#fff; border-radius:10px; padding:12px 14px;
-    font-size: calc(13.5px * var(--font-scale)); margin-bottom:12px; line-height:1.5;
-  }
-
   .error-box{
     background: #FBE7E4; border:1px solid #E39187; color:#7A2015;
     border-radius:10px; padding:12px 14px; font-size: calc(14px * var(--font-scale));
@@ -360,14 +355,6 @@
       <span>🔊 Ouvir explicação</span>
       <div class="switch" id="ttsSwitch" onclick="toggleTTS()"></div>
     </div>
-    <div class="toggle-row">
-      <span>🤟 Modo Libras</span>
-      <div class="switch" id="librasSwitch" onclick="toggleLibras()"></div>
-    </div>
-    <div class="libras-note" id="librasNote" style="display:none;">
-      Modo Libras ativado: nesta versão de demonstração, o texto é exibido em frases curtas e diretas para leitura.
-      Na versão final, aqui entra um intérprete virtual em Libras (vídeo/avatar).
-    </div>
 
     <div class="card">
       <h3>📌 Do que se trata</h3>
@@ -444,11 +431,6 @@
       <h3>🔊 Cliques em "Ouvir explicação"</h3>
       <p id="statListen" style="font-size: calc(28px * var(--font-scale)); font-weight:700; color:var(--ink);">—</p>
       <p style="margin:0; font-size: calc(13px * var(--font-scale));">Indício de uso por pessoas com baixa visão, idosos ou baixo letramento.</p>
-    </div>
-    <div class="card">
-      <h3>🤟 Cliques em "Modo Libras"</h3>
-      <p id="statLibras" style="font-size: calc(28px * var(--font-scale)); font-weight:700; color:var(--ink);">—</p>
-      <p style="margin:0; font-size: calc(13px * var(--font-scale));">Indício de uso por pessoas surdas.</p>
     </div>
     <div class="card">
       <h3>📄 Documentos processados</h3>
@@ -631,7 +613,6 @@ const SHEETS_WEBHOOK_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
 const EVENT_NAME_MAP = {
   visits: 'visita',
   listenClicks: 'clique_ouvir',
-  librasClicks: 'clique_libras',
   docsProcessed: 'documento_processado',
   cepConsultas: 'consulta_cep'
 };
@@ -659,7 +640,7 @@ async function logToSheet(evento, extra){
 
 async function logEvent(field, extra){
   try{
-    let stats = { visits: 0, listenClicks: 0, librasClicks: 0, docsProcessed: 0 };
+    let stats = { visits: 0, listenClicks: 0, docsProcessed: 0 };
     try{
       const existing = await window.storage.get(STATS_KEY, true);
       if(existing && existing.value){ stats = JSON.parse(existing.value); }
@@ -752,10 +733,9 @@ async function loadStats(){
   document.getElementById('statVisits').textContent = '…';
   try{
     const existing = await window.storage.get(STATS_KEY, true);
-    const stats = existing && existing.value ? JSON.parse(existing.value) : { visits: 0, listenClicks: 0, librasClicks: 0, docsProcessed: 0 };
+    const stats = existing && existing.value ? JSON.parse(existing.value) : { visits: 0, listenClicks: 0, docsProcessed: 0 };
     document.getElementById('statVisits').textContent = stats.visits || 0;
     document.getElementById('statListen').textContent = stats.listenClicks || 0;
-    document.getElementById('statLibras').textContent = stats.librasClicks || 0;
     document.getElementById('statDocs').textContent = stats.docsProcessed || 0;
     document.getElementById('statUpdated').textContent = stats.lastUpdated
       ? 'Última atualização: ' + new Date(stats.lastUpdated).toLocaleString('pt-BR')
@@ -763,7 +743,6 @@ async function loadStats(){
   } catch(err){
     document.getElementById('statVisits').textContent = '0';
     document.getElementById('statListen').textContent = '0';
-    document.getElementById('statLibras').textContent = '0';
     document.getElementById('statDocs').textContent = '0';
     document.getElementById('statUpdated').textContent = 'Nenhum teste registrado ainda.';
   }
@@ -924,13 +903,6 @@ function toggleTTS(){
   } else {
     speechSynthesis.cancel();
   }
-}
-
-function toggleLibras(){
-  const sw = document.getElementById('librasSwitch');
-  const isOn = sw.classList.toggle('on');
-  if(isOn){ logEvent('librasClicks'); }
-  document.getElementById('librasNote').style.display = isOn ? 'block' : 'none';
 }
 
 // ---------------------------------------------------------------------
@@ -1142,8 +1114,6 @@ function resetFlow(){
   document.getElementById('cepError').innerHTML = '';
   document.getElementById('mapsLink').style.display = 'none';
   document.getElementById('ttsSwitch').classList.remove('on');
-  document.getElementById('librasSwitch').classList.remove('on');
-  document.getElementById('librasNote').style.display = 'none';
   speechSynthesis.cancel();
   goTo('screen-home');
 }
