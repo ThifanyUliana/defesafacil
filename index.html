@@ -325,8 +325,12 @@
       <div id="uploadPlaceholder">📄<br>Nenhuma foto selecionada</div>
       <img id="previewImg" style="display:none;">
       <br>
-      <label class="file-label" for="fileInput">Escolher foto</label>
-      <input type="file" id="fileInput" accept="image/*" capture="environment">
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:6px;">
+        <label class="file-label" for="fileInputCamera">📷 Tirar foto</label>
+        <label class="file-label" for="fileInputGallery" style="background:var(--amber); color:#26180A;">🖼️ Escolher da galeria</label>
+      </div>
+      <input type="file" id="fileInputCamera" accept="image/*" capture="environment">
+      <input type="file" id="fileInputGallery" accept="image/*">
     </div>
     <div id="captureError"></div>
     <div class="btn-row">
@@ -681,9 +685,8 @@ function openStats(){
 // Registra 1 acesso assim que o app carrega
 logEvent('visits');
 
-// File upload
 // File upload — lê, comprime (reduz tamanho para caber no armazenamento) e mostra prévia
-document.getElementById('fileInput').addEventListener('change', function(e){
+function handleFileSelected(e){
   const file = e.target.files[0];
   if(!file) return;
   const reader = new FileReader();
@@ -713,7 +716,9 @@ document.getElementById('fileInput').addEventListener('change', function(e){
     img.src = evt.target.result;
   };
   reader.readAsDataURL(file);
-});
+}
+document.getElementById('fileInputCamera').addEventListener('change', handleFileSelected);
+document.getElementById('fileInputGallery').addEventListener('change', handleFileSelected);
 
 // ---------------------------------------------------------------------
 // BACKEND DE LEITURA DE DOCUMENTOS (Cloudflare Worker)
@@ -1037,7 +1042,8 @@ function resetFlow(){
   document.getElementById('previewImg').style.display = 'none';
   document.getElementById('uploadPlaceholder').style.display = 'block';
   document.getElementById('sendBtn').disabled = true;
-  document.getElementById('fileInput').value = '';
+  document.getElementById('fileInputCamera').value = '';
+  document.getElementById('fileInputGallery').value = '';
   document.getElementById('cepInput').value = '';
   document.getElementById('cepError').innerHTML = '';
   document.getElementById('mapsLink').style.display = 'none';
