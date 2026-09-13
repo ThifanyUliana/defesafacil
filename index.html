@@ -723,7 +723,7 @@ document.getElementById('fileInput').addEventListener('change', function(e){
 // para pessoas de outras cidades acessarem de fora, esse backend é
 // obrigatório.
 // ---------------------------------------------------------------------
-const AI_BACKEND_URL = "COLE_AQUI_A_URL_DO_WORKER";
+const AI_BACKEND_URL = "https://shy-mouse-f6dc.thifanyuliana010.workers.dev";
 
 const DOC_PROMPT = "Você é um assistente que explica documentos jurídicos brasileiros (intimações, citações, sentenças, notificações) para cidadãos leigos, incluindo pessoas idosas e com baixo nível de leitura. Leia o documento na imagem e responda APENAS em JSON, sem markdown, sem crases, no formato exato: {\"tipo_documento\": \"nome curto do tipo de documento\", \"resumo\": \"explicação em linguagem muito simples, 2-3 frases curtas, do que é o documento\", \"urgencia\": \"o que está em jogo: prazo, risco e prazo em dias se houver, em 1-2 frases simples\", \"checklist\": [\"passo 1 objetivo\", \"passo 2 objetivo\", \"passo 3 objetivo\"], \"area_juridica\": \"classifique o assunto do documento em EXATAMENTE uma destas opções: Cível, Criminal, Execução Penal, Família e Sucessões, Fazenda Pública, Infância e Juventude, Registros Públicos, Violência Doméstica, Outro\"}. Use frases curtas, palavras do dia a dia, sem termos jurídicos complicados. Se a imagem não for um documento jurídico legível, explique isso no campo resumo, deixe checklist com uma orientação para tirar a foto novamente e area_juridica como 'Outro'.";
 
