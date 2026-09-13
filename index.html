@@ -417,12 +417,6 @@
       <button class="btn" style="background:#C42D23; color:#fff; width:100%;" onclick="goTo('screen-dativo-info')">Deseja um Advogado Dativo</button>
     </div>
 
-    <div class="card" style="border-color: var(--amber); border-width:2px;">
-      <h3 style="color: var(--amber-dark);">🟠 Advogado Social</h3>
-      <p style="margin-bottom:12px;">Em breve — essa opção ainda está sendo configurada pela equipe do Defesa Fácil.</p>
-      <button class="btn" style="background:var(--amber); color:#26180A; width:100%;" onclick="goTo('screen-social-info')">Deseja um Advogado Social</button>
-    </div>
-
     <div class="btn-row">
       <button class="btn btn-outline" onclick="goTo('screen-cep')">Voltar</button>
     </div>
@@ -432,7 +426,13 @@
   <div class="screen" id="screen-dativo-info">
     <span class="badge">ADVOGADO DATIVO</span>
     <h2>Como solicitar um advogado dativo</h2>
-    <p>Caso você precise de um advogado dativo — ou seja, um advogado nomeado para representar quem não pode pagar por um advogado particular — o pedido pode ser feito pela internet, sem precisar ir pessoalmente ao tribunal.</p>
+
+    <div class="card" style="background: var(--navy); border: none;">
+      <h3 style="color:#fff;">💬 O que é um advogado dativo?</h3>
+      <p style="color:#fff; margin:0;">É um advogado escolhido pela Justiça para defender de graça quem não tem dinheiro para pagar um advogado particular. Ele tem os mesmos direitos e deveres de qualquer advogado — a diferença é que quem paga é o Estado, não você.</p>
+    </div>
+
+    <p>O pedido pode ser feito pela internet, sem precisar ir pessoalmente ao tribunal.</p>
 
     <div class="card">
       <h3>1. Encontre o tribunal responsável</h3>
@@ -453,16 +453,6 @@
 
     <div class="btn-row">
       <a href="https://balcaovirtual.tjpr.jus.br/" target="_blank" rel="noopener" class="btn btn-primary" style="text-decoration:none;">🔗 Abrir Balcão Virtual do TJPR</a>
-      <button class="btn btn-outline" onclick="goTo('screen-choice')">Voltar</button>
-    </div>
-  </div>
-
-  <!-- ADVOGADO SOCIAL (placeholder) -->
-  <div class="screen" id="screen-social-info">
-    <span class="badge">EM BREVE</span>
-    <h2>Advogado Social</h2>
-    <p>Essa opção ainda está sendo configurada pela nossa equipe. Em breve você vai poder solicitar atendimento por aqui também.</p>
-    <div class="btn-row">
       <button class="btn btn-outline" onclick="goTo('screen-choice')">Voltar</button>
     </div>
   </div>
